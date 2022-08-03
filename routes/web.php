@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +19,9 @@ Route::get('/', function () {
 });
 
 Route::get('/home', function () {
-    return view('home');
+    $user = new User();
+    dd($user);
+    //return view('home');
 
 });
 
