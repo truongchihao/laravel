@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -73,16 +74,91 @@ Route::get('/san-pham', function () {
 
 // Route::view('show-form', 'form');
 
-Route::prefix('admin')->group(function(){
-    Route::get('1', function(){
-        return 'Phuong thuc get cua path /1';
-    });
+// Route::prefix('admin')->group(function(){
+//     Route::get('1', function(){
+//         return 'Phuong thuc get cua path /1';
+//     });
     
-    Route::get('show-form', function(){
-        return view('form');
-    });
+//     Route::get('show-form', function(){
+//         return view('form');
+//     });
 
-    Route::prefix('products')->group(function(){
+//     Route::prefix('products')->group(function(){
+//         Route::get('/', function(){
+//             return 'Danh sách sản phẩm';
+//         });
+        
+//         Route::get('add', function(){
+//             return 'Thêm sản phẩm';
+//         });
+
+//         Route::get('edit', function(){
+//             return 'Sửa sản phẩm';
+//         });
+
+//         Route::get('delete', function(){
+//             return 'Xóa sản phẩm';
+//         });
+//     });
+// });
+
+// Route::get('/', function(){
+//     return view('home');
+// });
+
+// Route::prefix('admin')->group(function(){
+    // Route::get('1/{id?}', function($id=null){
+    //     $content = 'Phuong thuc get cua path /1 với tham số: ';
+    //     $content .='id='.$id;
+    //     return $content;
+    // });
+
+    // Route::get('tin-tuc/{slug?}-{id?}', function($slug=null, $id=null){
+    //     $content = 'Phuong thuc get cua path /1 với tham số: ';
+    //     $content .='id='.$id.'<br/>';
+    //     $content .='slug='.$slug.'<br/>';
+    //     return $content;
+    // });
+
+    // Route::get('tin-tuc/{slug}-{id}.html', function($slug=null, $id=null){
+    //     $content = 'Phuong thuc get cua path /1 với tham số: ';
+    //     $content .='id='.$id.'<br/>';
+    //     $content .='slug='.$slug;
+    //     return $content;
+    // })->where(
+    //     [
+    //         'slug'=>'.+',
+    //         'id'=>'[0-9]+'
+    //     ]
+    // );
+
+    // Route::get('tin-tuc/{id?}/{slug?}.html', function($id=null, $slug=null){
+    //     $content = 'Phuong thuc get cua path /1 với tham số: ';
+    //     $content .='id='.$id.'<br/>';
+    //     $content .='slug='.$slug;
+    //     return $content;
+    // })->where(
+    //     [
+    //         'slug'=>'.+',
+    //         'id'=>'[0-9]+'
+    //     ]
+    // )->name('admin.tintuc');
+
+    // Route::get('show-form', function(){
+    // return view('form');
+    // })->name('admin.show-form');
+// });
+
+// Route::get('/', function(){
+//     return view('home');
+// })->name('home');
+
+Route::get('/', 'App\Http\Controllers\HomeController@index')->name('home');
+Route::get('/tin-tuc', 'App\Http\Controllers\HomeController@getNews')->name('news');
+Route::get('/chuyen-muc/{id}', [HomeController::class, 'getCategories'])->name('chuyenmuc');
+
+Route::prefix('admin')->group(function(){
+    Route::prefix('products')->middleware('CheckPermission')->group(function(){
         Route::get('/', function(){
             return 'Danh sách sản phẩm';
         });
