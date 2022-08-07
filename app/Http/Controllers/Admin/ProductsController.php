@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class ProductsController extends Controller
 {
+    public function __construct(){
+        //echo 'Products khởi động';
+        //Sử dụng session để check login
+    }
     /**
      * Display a listing of the resource.
      *
