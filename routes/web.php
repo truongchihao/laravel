@@ -182,9 +182,11 @@ use App\Http\Controllers\Admin\DashboardController;
 
 //Client Routes
 
-Route::get('/', function(){
-    return '<h1 style="text-align: center;">TRANG CHỦ</h1>';
-})->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
+// Route::get('/', function(){
+    //return '<h1 style="text-align: center;">TRANG CHỦ</h1>';
+// })->name('home');
 
 Route::prefix('categories')->group(function(){
 
@@ -206,7 +208,8 @@ Route::prefix('categories')->group(function(){
     //Xóa chuyên mục
     Route::delete('/delete/{id}', [CategoriesController::class, 'deleteCategory'])->name('categories.delete');
 });
-
+Route::get('san-pham/{id}', [HomeController::class, 'getProductDetail']);
+// Admin Routes
 Route::middleware('auth.admin')->prefix('admin')->group(function(){
 
     Route::get('/', [DashboardController::class, 'index']);
