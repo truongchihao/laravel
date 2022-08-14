@@ -188,7 +188,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
     //return '<h1 style="text-align: center;">TRANG CHỦ</h1>';
 // })->name('home');
 
-Route::prefix('categories')->group(function(){
+Route::middleware('auth.admin')->prefix('categories')->group(function(){
 
     //Danh sách chuyên mục
     Route::get('/', [CategoriesController::class, 'index'])->name('categories.list');
